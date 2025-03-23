@@ -5,8 +5,9 @@ st.set_page_config(page_title="Predict", layout= "centered")
 
 @st.cache_resource
 def load_model():
-    with open("model.pkl", "rb") as file:
-        model = pickle.load(file)
+    file = open("model.pkl", "rb")
+    model = pickle.load(file)
+    file.close()
     return model
 
 model = load_model()
