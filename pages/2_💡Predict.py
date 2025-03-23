@@ -9,7 +9,7 @@ def load_model():
         model = pickle.load(file)
     return model
 
-#model = load_model()
+model = load_model()
 
 st.title("Online Transaction Fraud Detection")
 
