@@ -1,5 +1,4 @@
 import streamlit as st
-import sklearn
 
 st.set_page_config(page_title="Overview",layout="wide")
 hide_st_style = """
