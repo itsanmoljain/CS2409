@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pickle  
+import sklearn
 st.set_page_config(page_title="Predict", layout= "centered")
 
 @st.cache_resource
