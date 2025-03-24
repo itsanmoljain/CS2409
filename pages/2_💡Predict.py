@@ -10,7 +10,7 @@ def load_model():
     file.close()
     return model
 
-model = load_model()
+#model = load_model()
 
 st.title("Online Transaction Fraud Detection")
 
