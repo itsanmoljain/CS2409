@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import pickle  
+from joblib import load
 st.set_page_config(page_title="Predict", layout= "centered")
 hide_st_style = """
             <style>
@@ -11,13 +11,12 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 @st.cache_resource
 def load_model():
-    with open("model.pkl", "rb") as file:
-        info = pickle.load(file)
-    model = info["model"]
-    type_encod = info["type_encod"]
-    return model
+    info1 = load("model.joblib")
+    return info1
 
-model = load_model()
+info = load_model()
+model = info["model"]
+type_encod = info["type_encod"]
 
 st.title("Online Transaction Fraud Detection")
 
