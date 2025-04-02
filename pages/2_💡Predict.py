@@ -11,7 +11,8 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 @st.cache_resource
 def load_model():
-    info1 = load("model.joblib")
+    with open("model.joblib", 'rb') as fo:
+               info1 = load("model.joblib")
     return info1
 
 info = load_model()
