@@ -12,7 +12,9 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 @st.cache_resource
 def load_model():
     with open("model.pkl", "rb") as file:
-        model = pickle.load(file)
+        info = pickle.load(file)
+    model = info["model"]
+    type_encod = info["type_encod"]
     return model
 
 model = load_model()
@@ -29,12 +31,8 @@ with st.form("transaction_form"):
     submitted = st.form_submit_button("Predict")
 
 if submitted:
-    # Encode transaction type as numerical values
-    type_mapping = {"CASH_OUT": 0, "PAYMENT": 1, "CASH_IN": 2, "TRANSFER": 3, "DEBIT": 4}
-    type_encoded = type_mapping[transaction_type]
-    
     # Prepare the input data
-    input_data = np.array([[type_encoded, amount, old_balance, new_balance]])
+    input_data = np.array([[type_encod, amount, old_balance, new_balance]])
     
     # Make prediction
     prediction = model.predict(input_data)[0]
