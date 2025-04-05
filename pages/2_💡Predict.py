@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import sklearn
 from joblib import load
 st.set_page_config(page_title="Predict", layout= "centered")
 hide_st_style = """
