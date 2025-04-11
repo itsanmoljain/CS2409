@@ -14,7 +14,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 with open("model.joblib", 'rb') as file:
             info = load("model.joblib")
 model = info["model"]
-type_encod = info["type_encod"]
+type_encod = float(info["type_encod"])
 
 st.title("Online Transaction Fraud Detection")
 
