@@ -32,7 +32,7 @@ if submitted:
     input_data = np.array([[type_encod, amount, old_balance, new_balance]])
     
     # Make prediction
-    prediction = model.predict(input_data)[0]
+    prediction = model.predict(input_data)
     
     # Display the result
     if prediction == 0:
