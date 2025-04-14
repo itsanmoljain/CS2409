@@ -35,7 +35,7 @@ if submitted:
         }
     
     transaction_type = map[transaction_type]
-    input_data = np.array([[type_encod, amount, old_balance, new_balance]])
+    input_data = np.array([[transaction_type, amount, old_balance, new_balance]])
     
     # Make prediction
     prediction = model.predict(input_data)[0]
