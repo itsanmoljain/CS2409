@@ -43,5 +43,5 @@ if submitted:
     # Display the result
     if prediction == 1:
         st.success("Transaction is Legitimate ✅")
-    else:
+    if prediction == 0:
         st.error("Fraudulent Transaction Detected! 🚨")
