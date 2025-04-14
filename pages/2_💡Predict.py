@@ -34,7 +34,7 @@ if submitted:
         "DEBIT": 5
         }
     
-    type_options = map[type_options]
+    transaction_type = map[transaction_type]
     input_data = np.array([[type_encod, amount, old_balance, new_balance]])
     
     # Make prediction
