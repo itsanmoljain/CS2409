@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import sklearn
-from joblib import load
+from joblib import dump, load
 st.set_page_config(page_title="Predict", layout= "centered")
 hide_st_style = """
             <style>
@@ -10,11 +10,8 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-
-with open("model.joblib", 'rb') as file:
-            info = load("model.joblib")
-model = info["model"]
-type_encod = info["type_encod"]
+with open("model.pkl", 'rb') as file:
+    model = load("model.pkl")
 
 st.title("Online Transaction Fraud Detection")
 
@@ -29,6 +26,15 @@ with st.form("transaction_form"):
 
 if submitted:
     # Prepare the input data
+    map = {
+        "CASH_OUT": 1,
+        "PAYMENT": 2,
+        "CASH_IN": 3,
+        "TRANSFER": 4,
+        "DEBIT": 5
+        }
+    
+    type_options = map[type_options]
     input_data = np.array([[type_encod, amount, old_balance, new_balance]])
     
     # Make prediction
