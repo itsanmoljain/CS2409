@@ -41,7 +41,7 @@ if submitted:
     prediction = model.predict(input_data)[0]
     
     # Display the result
-    if prediction == 0:
+    if prediction == 1:
         st.success("Transaction is Legitimate ✅")
     else:
         st.error("Fraudulent Transaction Detected! 🚨")
