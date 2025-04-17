@@ -58,4 +58,3 @@ if st.session_state.show_result:
             # Reset all inputs
             for key in ["type", "amount", "old_balance", "new_balance", "old_dest", "new_dest", "show_result"]:
                 st.session_state[key] = None if key == "type" else 0.0 if key != "show_result" else False
-            st.experimental_rerun()
