@@ -1,47 +1,68 @@
 import streamlit as st
 import numpy as np
-import sklearn
-from joblib import dump, load
-st.set_page_config(page_title="Predict", layout= "centered")
-hide_st_style = """
-            <style>
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+from joblib import load
 
+# Load trained model
 with open("model.pkl", 'rb') as file:
-    model = load("model.pkl")
+    model = load(file)
 
-st.title("Online Transaction Fraud Detection")
+# App Title and Design
+st.set_page_config(page_title="Fraud Detection System", page_icon="💳", layout="centered")
 
+st.markdown("""
+    <style>
+        .main {
+            background-color: #f0f2f6;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .stButton > button {
+            background-color: #2ecc71;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("<h1 class='title'>🔍 Online Transaction Fraud Detection</h1>", unsafe_allow_html=True)
+
+st.write("Welcome to the **Fraud Detection System**. This system predicts whether a given transaction is legitimate or fraudulent based on key financial parameters.")
+
+# Input Form
 with st.form("transaction_form"):
-    type_options = ["CASH_OUT", "PAYMENT", "CASH_IN", "TRANSFER", "DEBIT"]
-    transaction_type = st.selectbox("Type of online transaction", type_options)
-    amount = st.number_input("The amount of transaction", min_value=0, step=1, format="%d")
-    old_balance = st.number_input("Initial balance of recipient before the transaction", min_value=0, step=1, format="%d")
-    new_balance = st.number_input("The new balance of recipient after the transaction", min_value=0, step=1, format="%d")
+    st.subheader("📝 Enter Transaction Details:")
     
-    submitted = st.form_submit_button("Predict")
+    type_options = {"CASH_OUT": 1, "PAYMENT": 2, "CASH_IN": 3, "TRANSFER": 4, "DEBIT": 5}
+    transaction_type = st.selectbox("Transaction Type", list(type_options.keys()))
+    
+    amount = st.number_input("💰 Transaction Amount", min_value=0.0, step=1.0)
+    old_balance = st.number_input("🏦 Sender's Balance Before Transaction", min_value=0.0, step=1.0)
+    new_balance = st.number_input("💸 Sender's Balance After Transaction", min_value=0.0, step=1.0)
+    old_dest_balance = st.number_input("📥 Receiver's Balance Before Transaction", min_value=0.0, step=1.0)
+    new_dest_balance = st.number_input("📤 Receiver's Balance After Transaction", min_value=0.0, step=1.0)
+
+    submitted = st.form_submit_button("🔍 Predict")
 
 if submitted:
-    # Prepare the input data
-    map = {
-        "CASH_OUT": 1,
-        "PAYMENT": 2,
-        "CASH_IN": 3,
-        "TRANSFER": 4,
-        "DEBIT": 5
-        }
-    
-    transaction_type = map[transaction_type]
-    input_data = np.array([[transaction_type, amount, old_balance, new_balance]])
-    
-    # Make prediction
+    # Prepare input data
+    type_encoded = type_options[transaction_type]
+    input_data = np.array([[type_encoded, amount, old_balance, new_balance, old_dest_balance, new_dest_balance]])
+
+    # Predict
     prediction = model.predict(input_data)[0]
-    
-    # Display the result
-    if prediction == 1:
-        st.success("Transaction is Legitimate ✅")
+
+    # Result
+    st.subheader("🔎 Prediction Result:")
     if prediction == 0:
-        st.error("Fraudulent Transaction Detected! 🚨")
+        st.success("✅ This transaction is **Legitimate**.")
+    else:
+        st.error("🚨 Fraudulent Transaction Detected!")
+    
+    st.markdown("---")
+    st.markdown("👨‍💻 *Final Year Project - Fraud Detection using Machine Learning*")
+
