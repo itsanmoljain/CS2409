@@ -54,8 +54,8 @@ if st.session_state.show_result:
         else:
             st.error("🚨 Fraudulent Transaction Detected!")
 
-        if st.button("❌ Clear"):
-            # Reset all inputs
-            for key in ["type", "amount", "old_balance", "new_balance", "old_dest", "new_dest", "show_result"]:
-                st.session_state[key] = None if key == "type" else 0.0 if key != "show_result" else False
-            st.success("Form cleared! Please refresh the page.")
+        if st.button("🔄 Refresh Page"):
+            components.html(
+                """<script>window.location.reload();</script>""",
+                height=0,
+            )
