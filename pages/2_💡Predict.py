@@ -2,59 +2,67 @@ import streamlit as st
 import numpy as np
 from joblib import load
 
-# Load model
+# Load trained model
 with open("model.pkl", 'rb') as file:
     model = load(file)
 
-# Page config
-st.set_page_config(page_title="Fraud Detection", page_icon="💳", layout="centered")
+# App Title and Design
+st.set_page_config(page_title="Fraud Detection System", page_icon="💳", layout="centered")
 
-st.markdown("<h1 style='text-align: center; color: #2c3e50;'>🔍 Fraud Detection System</h1>", unsafe_allow_html=True)
-st.write("Predict whether a transaction is **fraudulent or legitimate** based on financial details.")
+st.markdown("""
+    <style>
+        .main {
+            background-color: #f0f2f6;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .stButton > button {
+            background-color: #2ecc71;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# Setup default values in session_state
-for key in ["type", "amount", "old_balance", "new_balance", "old_dest", "new_dest", "show_result"]:
-    if key not in st.session_state:
-        st.session_state[key] = None if key == "type" else 0.0 if key != "show_result" else False
+st.markdown("<h1 class='title'>🔍 Online Transaction Fraud Detection</h1>", unsafe_allow_html=True)
 
-# Transaction form
+st.write("Welcome to the **Fraud Detection System**. This system predicts whether a given transaction is legitimate or fraudulent based on key financial parameters.")
+
+# Input Form
 with st.form("transaction_form"):
     st.subheader("📝 Enter Transaction Details:")
-
-    type_map = {"CASH_OUT": 1, "PAYMENT": 2, "CASH_IN": 3, "TRANSFER": 4, "DEBIT": 5}
-    st.session_state.type = st.selectbox("Transaction Type", list(type_map.keys()), index=0)
-    st.session_state.amount = st.number_input("💰 Transaction Amount", value=st.session_state.amount, min_value=0.0)
-    st.session_state.old_balance = st.number_input("🏦 Sender's Balance Before", value=st.session_state.old_balance, min_value=0.0)
-    st.session_state.new_balance = st.number_input("💸 Sender's Balance After", value=st.session_state.new_balance, min_value=0.0)
-    st.session_state.old_dest = st.number_input("📥 Receiver's Balance Before", value=st.session_state.old_dest, min_value=0.0)
-    st.session_state.new_dest = st.number_input("📤 Receiver's Balance After", value=st.session_state.new_dest, min_value=0.0)
+    
+    type_options = {"CASH_OUT": 1, "PAYMENT": 2, "CASH_IN": 3, "TRANSFER": 4, "DEBIT": 5}
+    transaction_type = st.selectbox("Transaction Type", list(type_options.keys()))
+    
+    amount = st.number_input("💰 Transaction Amount", min_value=0.0, step=1.0)
+    old_balance = st.number_input("🏦 Sender's Balance Before Transaction", min_value=0.0, step=1.0)
+    new_balance = st.number_input("💸 Sender's Balance After Transaction", min_value=0.0, step=1.0)
+    old_dest_balance = st.number_input("📥 Receiver's Balance Before Transaction", min_value=0.0, step=1.0)
+    new_dest_balance = st.number_input("📤 Receiver's Balance After Transaction", min_value=0.0, step=1.0)
 
     submitted = st.form_submit_button("🔍 Predict")
 
-# On predict
 if submitted:
-    input_data = np.array([[type_map[st.session_state.type],
-                            st.session_state.amount,
-                            st.session_state.old_balance,
-                            st.session_state.new_balance,
-                            st.session_state.old_dest,
-                            st.session_state.new_dest]])
-    
+    # Prepare input data
+    type_encoded = type_options[transaction_type]
+    input_data = np.array([[type_encoded, amount, old_balance, new_balance, old_dest_balance, new_dest_balance]])
+
+    # Predict
     prediction = model.predict(input_data)[0]
-    st.session_state.show_result = True
-    st.session_state.prediction = prediction
 
-# Simulated Pop-Up Result
-if st.session_state.show_result:
-    with st.container():
-        st.markdown("---")
-        st.subheader("🎯 Prediction Result")
-        if st.session_state.prediction == 0:
-            st.success("✅ Legitimate Transaction")
-        else:
-            st.error("🚨 Fraudulent Transaction Detected!")
+    # Result
+    st.subheader("🔎 Prediction Result:")
+    if prediction == 0:
+        st.success("✅ This transaction is **Legitimate**.")
+    else:
+        st.error("🚨 Fraudulent Transaction Detected!")
+    
+    st.markdown("---")
+    st.markdown("👨‍💻 *Final Year Project - Fraud Detection using Machine Learning*")
 
-        if st.button("❌ Clear"):
-            # Reset all inputs
-            for key in ["type", "amount", "old_balance", "new_balance", "old_dest", "new_dest", "show_result"]:
-                st.session_state[key] = None if key == "type" else 0.0 if key != "show_result" else False
