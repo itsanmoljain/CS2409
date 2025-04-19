@@ -2,20 +2,7 @@ import streamlit as st
 import numpy as np
 from joblib import load
 
-st.set_page_config(page_title="Fraud Detection System",layout="wide")
-
-st.markdown("""
-    <style>
-        /* Hide sidebar completely */
-        [data-testid="stSidebar"] {
-            display: none !important;
-        }
-        /* Optional: hide the top header too */
-        header[data-testid="stHeader"] {
-            display: none !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="Fraud Detection System",layout="wide",initial_sidebar_state="collapsed")
 
 # Load trained model
 with open("model.pkl", 'rb') as file:
