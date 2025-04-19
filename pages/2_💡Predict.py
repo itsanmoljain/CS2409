@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 from joblib import load
 
+st.set_page_config(page_title="Fraud Detection System",layout="wide")
+
 st.markdown("""
     <style>
         /* Hide sidebar completely */
