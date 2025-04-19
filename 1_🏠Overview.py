@@ -17,8 +17,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Fraud Detection Home", layout="wide")
-
 st.markdown("""
     <style>
     .section-header {
