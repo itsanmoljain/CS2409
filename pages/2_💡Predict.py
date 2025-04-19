@@ -51,7 +51,7 @@ type_encoding = {
 transaction_type = st.selectbox("Transaction Type", list(type_encoding.keys()))
 st.markdown(f"**ℹ️ {type_descriptions[transaction_type]}**")
 # Input form
-with st.form("transaction_form",clear_on_submit=False, enter_to_submit=True):
+with st.form("transaction_form",clear_on_submit = True, enter_to_submit = True):
     amount = st.text_input("💰 Transaction Amount",placeholder=0.00)
     old_balance = st.number_input("🏦 Sender's Balance Before Transaction", min_value=0.0, step=100.0,placeholder=0.00)
     new_balance = st.number_input("💳 Sender's Balance After Transaction", min_value=0.0, step=100.0,placeholder=0.00)
