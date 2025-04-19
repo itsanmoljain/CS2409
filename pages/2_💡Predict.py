@@ -87,4 +87,4 @@ try:
         else:
             st.success(f"✅ Legitimate Transaction\n\n**Confidence:** {1 - proba:.2f}")
 except:
-    print("please enter details.")
+    st.error("please enter details.")
