@@ -12,10 +12,6 @@ st.markdown("""
         header[data-testid="stHeader"] {
             display: none !important;
         }
-        /* Expand the main content to full width */
-        .main {
-            margin-left: 0 !important;
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -102,19 +98,3 @@ try:
             st.success(f"✅ Legitimate Transaction\n\n**Confidence:** {1 - proba:.2f}")
 except:
     st.error("please enter details.")
-st.markdown("""
-    <style>
-        div.stButton > button {
-            padding: 14px 42px;
-            font-size: 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 10px;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# Then use native Streamlit button
-if st.button("🏠 Go to Home Page"):
-    st.switch_page("Home.py")
