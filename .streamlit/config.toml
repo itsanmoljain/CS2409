@@ -10,4 +10,4 @@ font = "sans serif"
 runOnSave = true
 
 [ui]
-hideSidebarNav = true
+hideSidebarNav = false
