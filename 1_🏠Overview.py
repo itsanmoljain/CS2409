@@ -1,5 +1,21 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+st.markdown("""
+    <style>
+        /* Hide sidebar completely */
+        [data-testid="stSidebar"] {
+            display: none !important;
+        }
+        /* Optional: hide the top header too */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+        /* Expand the main content to full width */
+        .main {
+            margin-left: 0 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="Fraud Detection Home", layout="wide")
 
