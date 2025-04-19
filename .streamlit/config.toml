@@ -1,0 +1,13 @@
+[theme]
+base = "light"
+primaryColor = "#007BFF"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#000000"
+font = "sans serif"
+
+[server]
+runOnSave = true
+
+[ui]
+hideSidebarNav = true
