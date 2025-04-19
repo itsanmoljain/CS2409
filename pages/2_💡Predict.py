@@ -2,6 +2,23 @@ import streamlit as st
 import numpy as np
 from joblib import load
 
+st.markdown("""
+    <style>
+        /* Hide sidebar completely */
+        [data-testid="stSidebar"] {
+            display: none !important;
+        }
+        /* Optional: hide the top header too */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+        /* Expand the main content to full width */
+        .main {
+            margin-left: 0 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Load trained model
 with open("model.pkl", 'rb') as file:
     model = load(file)
