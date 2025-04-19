@@ -23,9 +23,6 @@ st.markdown("""
 with open("model.pkl", 'rb') as file:
     model = load(file)
 
-# Set page config
-st.set_page_config(page_title="Fraud Detection System", layout="centered")
-
 st.markdown("<h1 style='text-align: center;'>🔍 Online Transaction Fraud Detection</h1>", unsafe_allow_html=True)
 st.write("This app predicts whether a transaction is **fraudulent or legitimate** based on entered details.")
 
