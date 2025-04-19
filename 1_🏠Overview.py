@@ -84,7 +84,7 @@ with st.expander("📰 Latest Fraud-Related News"):
 st.markdown("<div class='section-header'>📊 Fraud Risk by Transaction Type</div>", unsafe_allow_html=True)
 col_chart, col_desc = st.columns([1, 1])
 with col_chart:
-    st.image("asset/pie.jpg", use_container_width=True)
+    st.image("assests/pie.jpg", use_container_width=True)
 
 
 with col_desc:
