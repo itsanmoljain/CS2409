@@ -91,7 +91,7 @@ except:
 st.markdown("""
 <div style='text-align: center; margin: 30px 0;'>
     <a href="/Overview" target="_self">
-        <button style='padding: 14px 42px; font-size: 20px; background-color: #007BFF; color: white; border: none; border-radius: 10px;'>🔍 Go to Predictor</button>
+        <button style='padding: 14px 42px; font-size: 20px; background-color: #007BFF; color: white; border: none; border-radius: 10px;'>🏠 Go to Home Page</button>
     </a>
 </div>
 """, unsafe_allow_html=True)
