@@ -62,26 +62,29 @@ with st.form("transaction_form"):
     submitted = st.form_submit_button("🔍 Predict")
 
 # On form submit
-if submitted:
-    try:
-        amount = float(amount)
-    except:
-        st.warning("Please enter a valid amount.")
-    # Derived features
-    receiver_delta = new_dest - old_dest
-    sender_emptied = int(new_balance == 0)
-    receiver_gained = int(receiver_delta > amount)
-    amount_mismatch = abs(receiver_delta - amount)
+try:
+    if submitted:
+        try:
+            amount = float(amount)
+        except:
+            st.warning("Please enter a valid amount.")
+        # Derived features
+        receiver_delta = new_dest - old_dest
+        sender_emptied = int(new_balance == 0)
+        receiver_gained = int(receiver_delta > amount)
+        amount_mismatch = abs(receiver_delta - amount)
 
-    input_data = np.array([[type_encoding[transaction_type], amount, old_balance, new_balance,
-                            old_dest, new_dest, amount_mismatch, sender_emptied, receiver_gained]])
+        input_data = np.array([[type_encoding[transaction_type], amount, old_balance, new_balance,
+                                old_dest, new_dest, amount_mismatch, sender_emptied, receiver_gained]])
 
-    proba = model.predict_proba(input_data)[0][1]
-    st.write(proba)
-    st.markdown("---")
-    st.subheader("🔎 Prediction Result:")
+        proba = model.predict_proba(input_data)[0][1]
+        st.write(proba)
+        st.markdown("---")
+        st.subheader("🔎 Prediction Result:")
 
-    if proba < 0.1:
-        st.error(f"🚨 Fraudulent Transaction Detected!\n\n**Confidence:** {proba:.2f}")
-    else:
-        st.success(f"✅ Legitimate Transaction\n\n**Confidence:** {1 - proba:.2f}")
+        if proba < 0.1:
+            st.error(f"🚨 Fraudulent Transaction Detected!\n\n**Confidence:** {proba:.2f}")
+        else:
+            st.success(f"✅ Legitimate Transaction\n\n**Confidence:** {1 - proba:.2f}")
+except:
+    print("please enter details.")
