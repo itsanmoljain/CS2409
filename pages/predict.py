@@ -64,7 +64,7 @@ def predict():
     st.markdown(f"ℹ️ {type_descriptions[transaction_type]}")
     # Input form
     
-    with st.form("transaction_form"):
+    with st.form("transaction_form",clear_on_submit=True, enter_to_submit=True):
         amount = st.number_input("💰 Transaction Amount",min_value=0.0, step=100.0,placeholder=0.00)
         old_balance = st.number_input("🏦 Sender's Balance Before Transaction", min_value=0.0, step=100.0,placeholder=0.00)
         new_balance = st.number_input("💳 Sender's Balance After Transaction", min_value=0.0, step=100.0,placeholder=0.00)
