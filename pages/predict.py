@@ -89,14 +89,13 @@ def predict():
                                     old_dest, new_dest, amount_mismatch, sender_emptied, receiver_gained]])
 
             proba = model.predict_proba(input_data)[0][1]
-            st.write(proba)
             st.markdown("---")
             st.subheader("🔎 Prediction Result:")
 
             if proba < 0.1:
-                st.error(f"🚨 Fraudulent Transaction Detected!\n\n**Confidence:** {proba:.2f}")
+                st.error(f"🚨 Fraudulent Transaction Detected!")
             else:
-                st.success(f"✅ Legitimate Transaction\n\n**Confidence:** {1 - proba:.2f}")
+                st.success(f"✅ Legitimate Transaction")
     except:
         print("please enter details.")
 
