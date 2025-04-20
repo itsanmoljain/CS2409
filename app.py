@@ -1,7 +1,7 @@
 import streamlit as st
 from pages.home import home
 from pages.predict import predict
-
+st.set_page_config(initial_sidebar_state="collapsed")
 # --------------------- Session Setup ---------------------
 if "page" not in st.session_state:
     st.session_state.page = "home"
