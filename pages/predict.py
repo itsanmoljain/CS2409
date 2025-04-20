@@ -65,7 +65,7 @@ def predict():
     # Input form
     
     with st.form("transaction_form"):
-        amount = st.text_input("💰 Transaction Amount",placeholder=0.00)
+        amount = st.number_input("💰 Transaction Amount",min_value=0.0, step=100.0,placeholder=0.00)
         old_balance = st.number_input("🏦 Sender's Balance Before Transaction", min_value=0.0, step=100.0,placeholder=0.00)
         new_balance = st.number_input("💳 Sender's Balance After Transaction", min_value=0.0, step=100.0,placeholder=0.00)
         old_dest = st.number_input("📥 Receiver's Balance Before Transaction", min_value=0.0, step=100.0,placeholder=0.00)
@@ -76,10 +76,6 @@ def predict():
     # On form submit
     try:
         if submitted:
-            try:
-                amount = float(amount)
-            except:
-                st.warning("Please enter a valid amount.")
             # Derived features
             receiver_delta = new_dest - old_dest
             sender_emptied = int(new_balance == 0)
