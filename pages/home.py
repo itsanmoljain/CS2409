@@ -1,7 +1,7 @@
 import streamlit as st
 
 def home():
-    st.set_page_config(page_title="Overview",page_icon="🏠",layout="wide")
+    st.set_page_config(page_title="Overview",page_icon="🏠",layout="wide",initial_sidebar_state="collapsed")
     
     if st.session_state.page == "home":
 
