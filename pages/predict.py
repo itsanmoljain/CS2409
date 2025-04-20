@@ -7,7 +7,7 @@ def predict():
         model = load(file)
 
     # Set page config
-    st.set_page_config(page_title="Fraud Detection System",page_icon="🔍", layout="wide")
+    st.set_page_config(page_title="Fraud Detection System",page_icon="🔍", layout="wide",initial_sidebar_state="collapsed")
     st.markdown("""
     <style>
         html, body, [class*="css"]  {
