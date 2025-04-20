@@ -76,6 +76,9 @@ def predict():
     # On form submit
     try:
         if submitted:
+            if ([amount, old_balance, new_balance,old_dest, new_dest] == [0.0,0.0,0.0,0.0,0.0]):
+                st.warning("Please enter valid data")
+                return
             # Derived features
             receiver_delta = new_dest - old_dest
             sender_emptied = int(new_balance == 0)
